@@ -1,6 +1,6 @@
 # Kalender Musim Gorontalo
 
-[![DOI: 10.5281/zenodo.2656287](https://zenodo.org/badge/doi/10.5281/zenodo.2656287.svg?)](https://zenodo.org/record/2656287)
+[![DOI: 10.5281/zenodo.2656287](https://zenodo.org/badge/doi/10.5281/zenodo.2656287.svg)](https://zenodo.org/record/2656287)
 
 ## Demo
 Demo [disini](https://zulns.github.io/Kalmusgo.js/).
