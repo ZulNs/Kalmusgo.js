@@ -7,7 +7,7 @@ Demo [disini](https://zulns.github.io/Kalmusgo.js/).
 
 ## Dependensi
 - [HijriDate.js](https://github.com/ZulNs/HijriDate.js) untuk penggunaan obyek
-[`HijriDate`](https://zulns.github.io/HijriDate.js/hijri-date-api-doc.html), librari JS untuk menghitung penanggalan Hijriyah
+[`HijriDate`](https://zulns.github.io/HijriDate.js/hijri-date-api-doc.html), librari JS untuk menghitung penanggalan Hijriah
 dengan cara yang sama seperti halnya obyek `Date` menghitung penanggalan Masehi.
 - [w3css](https://github.com/ZulNs/w3css), diambil dari [CSS Framework](https://github.com/JaniRefsnes/w3css) oleh
 [Jan Egil Refsnes](https://github.com/JaniRefsnes) untuk pengaturan tampilan kalender ini. 
