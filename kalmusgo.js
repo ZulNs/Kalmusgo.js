@@ -1,8 +1,9 @@
 /*
- * Hijri/Gregorian Calendar using W3CSS
+ * Kalmusgo.js: Kalender Musim Gorontalo
  * 
- * Designed by ZulNs, @Gorontalo, Indonesia, 30 April 2017
- * Revised to using W3CSS, @Gorontalo, Indonesia, 14 January 2019
+ * Didesain oleh ZulNs, @Gorontalo, Indonesia, 30 Agustus 2017
+ * Berdasarkan ide/catatan saudara Amirudin Dako
+ * Direvisi menggunakan W3CSS pada 29 April 2019
  */
 'use strict';
 function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
