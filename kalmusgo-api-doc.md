@@ -5,7 +5,7 @@
 ## Konstruktor
 ### Sintaks
 ```javascript
-new Kalmusgo([modeHijriah[, tahun[, indeksBulan[, mulaiHari[, bahasa[, warnaTema[, timeout]]]]]]]);
+new Kalmusgo([modeHijriah[, tahun[, indeksBulan[, mulaiHari[, warnaTema[, timeout]]]]]]);
 ```
 
 ### Parameter-Parameter
@@ -20,17 +20,12 @@ new Kalmusgo([modeHijriah[, tahun[, indeksBulan[, mulaiHari[, bahasa[, warnaTema
   Default: tahun sekarang
 
 - **`indeksBulan`** (optional)<br>
-  Bilangan bulat yang menunjukkan angka indeks bulan kalender, mulai dari 0 untuk bulan Muharam/Januari hingga 11 untuk bulan Dzul-Hijjah/Desember.<br>
+  Bilangan bulat yang menunjukkan angka indeks bulan kalender, mulai dari 0 untuk bulan Muharam/Januari hingga 11 untuk bulan Zulhijjah/Desember.<br>
   Default: indeks dari bulan sekarang
 
 - **`mulaiHari`** (optional)<br>
   Bilangan bulat yang menunjukkan hari pertama dalam mingguan (0-6), angka 0 untuk hari Senin hingga 6 untuk hari Sabtu.<br>
   Default: `1` (hari Senin)
-
-- **`bahasa`** (optional)<br>
-  Nilai string yang menunjukkan bahasa yang digunakan. Hanya mendukung bahasa Indonesia saja.<br>
-  `"id"`: bahasa Indonesia<br>
-  Default: `"id"`
 
 - **`warnaTema`** (optional)<br>
   Bilangan bulat yang menunjukkan indeks warna tema (0-22) atau nilai string berupa warna yang digunakan.<br>
@@ -87,10 +82,6 @@ new Kalmusgo([modeHijriah[, tahun[, indeksBulan[, mulaiHari[, bahasa[, warnaTema
   `true`: kalender Hijriah<br>
   `false`: kalender Masehi
 
-- **`.setLanguage(bahasa)`**<br>
-  Mengatur bahasa yang digunakan oleh kalender dengan string oleh `bahasa`.<br>
-  `"id"`: bahasa Indonesia
-
 - **`.setMonth(indeksBulan)`**<br>
   Mengatur tampilan kalender pada bulan tertentu yang ditunjukkan oleh `indeksBulan` yang berupa bilangan bulat.
 
@@ -132,10 +123,10 @@ new Kalmusgo([modeHijriah[, tahun[, indeksBulan[, mulaiHari[, bahasa[, warnaTema
 ## Metode-Metode Tambahan untuk `Date.prototype` dan `HijriDate.prototype`
 Dengan menggunakan librari ini, metode-metode berikut akan ditambahkan pada instans `Date.prototype` dan `HijriDate.prototype`.
 - **`.getMonthName([indeksBulan])`**
-  Mengembalikan nama bulan sesuai angka indeks bulan (0-11) yang diinginkan dalam `indeksBulan` sebagai nilai string ("Januari"-"Desember" atau "Muharam"-"Dzul-Hijjah"). If `indeksBulan` dihilangkan maka nama bulan sekarang yang akan dikembalikan.
+  Mengembalikan nama bulan sesuai angka indeks bulan (0-11) yang diinginkan dalam `indeksBulan` sebagai nilai string ("Januari"-"Desember" atau "Muharam"-"Zulhijjah"). If `indeksBulan` dihilangkan maka nama bulan sekarang yang akan dikembalikan.
 
 - **`.getMonthShortName([indeksBulan])`**
-  Mengembalikan nama dari indeks bulan (0-11) yang diinginkanthat dalam `indkesBulan` sebagai string yang bisa dibaca ("Januari"-"Desember" atau "Muharam"-"Dzul-Hijjah"). Jika `indeksBulan` dihilangkan maka nama bulan sekarang yang akan dikembalikan.
+  Mengembalikan nama dari indeks bulan (0-11) yang diinginkanthat dalam `indkesBulan` sebagai string yang bisa dibaca ("Januari"-"Desember" atau "Muharam"-"Zulhijjah"). Jika `indeksBulan` dihilangkan maka nama bulan sekarang yang akan dikembalikan.
 
 - **`.getWeekdayName([hari])`**
   Mengembalikan nama hari (0-6) dalam `hari` sebagai string yang bisa dibaca ("Minggu"-"Sabtu"). Jika `hari` dihilangkan maka nama hari sekarang yang akan dikembalikan.
