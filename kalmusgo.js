@@ -18,7 +18,7 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 	addEvt=function(el,ev,cb){
 		if(window.addEventListener)el.addEventListener(ev,cb);else if(el.attachEvent)el.attachEvent('on'+ev,cb);else el['on'+ev]=cb
 	},
-	contElm=createElm('div','zulns-calendar'),
+	contElm=createElm('div','zulns-kalmusgo'),
 	calElm=createElm('div','w3-card-4'),
 	headerElm=createElm('div','w3-display-container w3-theme'),
 	evtElm=createElm('div','w3-large unbreakable'),
