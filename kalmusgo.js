@@ -6,7 +6,7 @@
  * Direvisi menggunakan W3CSS pada 29 April 2019
  */
 'use strict';
-function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
+function Kalmusgo(isHijr,year,month,firstDay,theme,tmout){
 	if(typeof HijriDate=='undefined')throw new Error('HijriDate() class required!');
 	let kmg=typeof this=='object'?this:window,gdate=new Date(),hdate=new HijriDate(),dispDate,tzOffset=Date.parse('01 Jan 1970'),
 	gridAni='zoom',actTmoId,isDispToday=false,isAccFirstDayOpened=false,isAccEvtsOpened=false,isAutoNewTheme,isRTL=false,
@@ -122,7 +122,7 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 			el.setAttribute('firstday',i);
 			addEvt(el,'click',onSelFirstDay);
 			accFirstDayElm.appendChild(el)
-		}let m=Kalmusgo.getVal('events');
+		}let m=Kalmusgo.strings['events'];
 		for(let i=0;i<m.length;i++){
 			let el=createElm('button','w3-bar-item w3-button w3-ripple','&#9679;&nbsp;'+m[i]);
 			if(i>4){replaceClass(el,'w3-button w3-ripple','w3-transparent');el.disabled=true}
@@ -132,23 +132,23 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 		}updMenuLbl();updCalModMenuLbl();updFirstDayMenuLbl();updHeader();createWdayTitle();createDates()
 	},
 	updMenuLbl=function(){
-		let c=Kalmusgo.getVal;
-		menuFirstDayElm.children[0].innerHTML=c('menuItem1');
-		menuEvtsElm.children[0].innerHTML=c('menuItem2');
-		menuTodayElm.innerHTML=c('menuItem3');
-		menuNewThemeElm.innerHTML=c('menuItem4');
-		menuAboutElm.innerHTML=c('menuItem5');
-		menuCloseElm.innerHTML=c('menuItem6')+'<span class="w3-right">&times;</span>';
+		let c=Kalmusgo.strings;
+		menuFirstDayElm.children[0].innerHTML=c['menuItem1'];
+		menuEvtsElm.children[0].innerHTML=c['menuItem2'];
+		menuTodayElm.innerHTML=c['menuItem3'];
+		menuNewThemeElm.innerHTML=c['menuItem4'];
+		menuAboutElm.innerHTML=c['menuItem5'];
+		menuCloseElm.innerHTML=c['menuItem6']+'<span class="w3-right">&times;</span>';
 	},
 	updCalModMenuLbl=function(){
-		menuCalModElm.innerHTML=Kalmusgo.getVal('menuItem0')[isHijr?1:0];
+		menuCalModElm.innerHTML=Kalmusgo.strings['menuItem0'][isHijr?1:0];
 	},
 	updFirstDayMenuLbl=function(){
 		for(let i=0;i<7;i++)accFirstDayElm.children[i].innerHTML='&#9679;&nbsp;'+dispDate.getWeekdayName(i)
 	},
 	updTodayLbl=function(){todayElm.innerHTML=isSmallScreen?dispDate.todayShortString():dispDate.todayString()},
 	updHeader=function(){
-		yearValElm.innerHTML=Kalmusgo.getDigit(dispDate.getYearString());
+		yearValElm.innerHTML=dispDate.getYearString();
 		monthValElm.innerHTML=dispDate.getMonthName()
 	},
 	createWdayTitle=function(){
@@ -440,7 +440,7 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 				else if(!isStyled&&i%7==isSun)grid.className+=' w3-text-red';
 				if(isStyled)grid.className+=' styled'
 			}
-			pde.innerHTML=Kalmusgo.getDigit(pdate);sde.innerHTML=Kalmusgo.getDigit(sdate)+' '+smsn;pdate++;
+			pde.innerHTML=pdate;sde.innerHTML=sdate+' '+smsn;pdate++;
 			if(pdate>pdim){
 				pdate=1;
 				dispDate.setMonth(dispDate.getMonth()+1);
@@ -491,7 +491,7 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 		else{replaceClass(menuEvtsElm,'expanded','collapsed');isAccEvtsOpened=false}
 	},
 	onSelEvt=function(ev){
-		ev=ev||window.event;let el=ev.target||ev.srcElement,ed=Kalmusgo.getVal('events'),ea=parseInt(el.getAttribute('event'));
+		ev=ev||window.event;let el=ev.target||ev.srcElement,ed=Kalmusgo.strings['events'],ea=parseInt(el.getAttribute('event'));
 		replaceClass(el,'w3-button w3-ripple','w3-transparent');
 		el.disabled=true;
 		switch(ea){
@@ -614,19 +614,6 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 			}return true
 		}return false
 	};
-	kmg.setLanguage=function(l){
-		let c=Kalmusgo;
-		if(typeof l=='string'){
-			l=l.toLowerCase();
-			if(typeof c.language[l]=='object'&&l!=c.lang){
-				c.lang=l;
-				replaceClass(gridsElm,' right-to-left','');
-				isRTL=c.getVal('isRTL');if(isRTL)gridsElm.className+=' right-to-left';
-				gridAni='zoom';updMenuLbl();updCalModMenuLbl();updFirstDayMenuLbl();updTodayLbl();updHeader();
-				recreateWdayTitle();recreateDates();return true
-			}
-		}return false
-	};
 	kmg.setMonth=function(m){return kmg.resetDate(null,m)};
 	kmg.setTheme=function(t){
 		let ct=Kalmusgo.themes,ctl=ct.length,i=0;
@@ -654,9 +641,6 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 	if(typeof isHijr!='boolean')isHijr=false;
 	dispDate=isHijr?hdate:gdate;
 	firstDay=HijriDate.int(firstDay,1)%7;
-	if(typeof lang=='string'){lang=lang.toLowerCase();if(typeof Kalmusgo.language[lang]!='object')lang='id'}
-	else lang='id';
-	Kalmusgo.lang=lang;
 	kmg.setTheme(theme);
 	tmout=HijriDate.int(tmout,120);
 	beginNewDate();
@@ -670,86 +654,68 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 }
 Date.prototype.getMonthName=function(m){
 	m=(HijriDate.int(m,this.getMonth())%12+12)%12;
-	return Kalmusgo.getVal('monthNames')[m]
+	return Kalmusgo.strings['monthNames'][m]
 };
 Date.prototype.getMonthShortName=function(m){
 	m=(HijriDate.int(m,this.getMonth())%12+12)%12;
-	let c=Kalmusgo.getVal,s=c('monthShortNames');
-	return s?s[m]:c('monthNames')[m]
+	return Kalmusgo.strings['monthShortNames'][m]
 };
 Date.prototype.getWeekdayName=function(d){
 	d=(HijriDate.int(d,this.getDay())%7+7)%7;
-	return Kalmusgo.getVal('weekdayNames')[d]
+	return Kalmusgo.strings['weekdayNames'][d]
 };
 Date.prototype.getWeekdayShortName=function(d){
 	d=(HijriDate.int(d,this.getDay())%7+7)%7;
-	let c=Kalmusgo.getVal,s=c('weekdayShortNames');
-	return s?s[d]:c('weekdayNames')[d]
+	return Kalmusgo.strings['weekdayShortNames'][d]
 };
 Date.prototype.getYearString=function(y){
 	y=HijriDate.int(y,this.getFullYear());
-	let e=Kalmusgo.getVal('eraSuffix'),i=0;
-	if(e){if(y<1){i++;y=1-y}y=y+' '+e[i]}else y=y.toString();return y
+	let e=Kalmusgo.strings['eraSuffix'],i=0;
+	if(y<1){i++;y=1-y};return y+' '+e[i]
 };
 Date.prototype.todayShortString=function(){
 	let t=this.getTime();this.setTime(Date.now());
 	let s=this.getWeekdayShortName()+', '+this.getDate()+' '+this.getMonthShortName()+' '+this.getFullYear();
-	this.setTime(t);return Kalmusgo.getDigit(s)
+	this.setTime(t);return s
 };
 Date.prototype.todayString=function(){
 	let t=this.getTime();this.setTime(Date.now());
 	let	s=this.getWeekdayName()+', '+this.getDate()+' '+this.getMonthName()+' '+this.getFullYear();
-	this.setTime(t);return Kalmusgo.getDigit(s)
+	this.setTime(t);return s
 };
 HijriDate.prototype.getMonthName=function(m){
 	m=(HijriDate.int(m,this.getMonth())%12+12)%12;
-	let c=Kalmusgo;
-	return c.lang=='en'?HijriDate.monthNames[m]:c.getVal('hMonthNames')[m]
+	return Kalmusgo.strings['hMonthNames'][m]
 };
 HijriDate.prototype.getMonthShortName=function(m){
 	m=(HijriDate.int(m,this.getMonth())%12+12)%12;
-	let c=Kalmusgo;
-	if(c.lang=='en')return HijriDate.monthShortNames[m];
-	let cg=c.getVal,s=cg('hMonthShortNames');
-	return s?s[m]:cg('hMonthNames')[m]
+	return Kalmusgo.strings['hMonthShortNames'][m]
 };
 HijriDate.prototype.getWeekdayName=function(d){
 	d=(HijriDate.int(d,this.getDay())%7+7)%7;
-	let c=Kalmusgo;
-	if(c.lang=='en')return HijriDate.weekdayNames[d]
-	return c.getVal('weekdayNames')[d]
+	return Kalmusgo.strings['weekdayNames'][d]
 };
 HijriDate.prototype.getWeekdayShortName=function(d){
 	d=(HijriDate.int(d,this.getDay())%7+7)%7;
-	let c=Kalmusgo;
-	if(c.lang=='en')return HijriDate.weekdayShortNames[d]
-	let cg=c.getVal,s=cg('weekdayShortNames');
-	return s?s[d]:cg('weekdayNames')[d]
+	return Kalmusgo.strings['weekdayShortNames'][d]
 };
 HijriDate.prototype.getYearString=function(y){
 	y=HijriDate.int(y,this.getFullYear());
-	let e=Kalmusgo.getVal('hEraSuffix'),i=0;
-	if(e){if(y<1){i++;y=1-y}y=y+' '+e[i]}else y=y.toString();return y
+	let e=Kalmusgo.strings['hEraSuffix'],i=0;
+	if(y<1){i++;y=1-y};return y+' '+e[i]
 };
 HijriDate.prototype.todayShortString=function(){
 	let t=this.getTime();this.setTime(Date.now());
 	let	s=this.getWeekdayShortName()+', '+this.getDate()+' '+this.getMonthShortName()+' '+this.getFullYear();
-	this.setTime(t);return Kalmusgo.getDigit(s)
+	this.setTime(t);return s
 };
 HijriDate.prototype.todayString=function(){
 	let t=this.getTime();this.setTime(Date.now());
 	let	s=this.getWeekdayName()+', '+this.getDate()+' '+this.getMonthName()+' '+this.getFullYear();
-	this.setTime(t);return Kalmusgo.getDigit(s)
+	this.setTime(t);return s
 };
-Object.defineProperty(Kalmusgo,'getDigit',{value:function(d){
-	let c=Kalmusgo.getVal('digit');
-	if(c)return d.toString().replace(/\d(?=[^<>]*(<|$))/g,function($0){return c[$0]});return d
-}});
 Object.defineProperty(Kalmusgo,'themes',{value:['amber','aqua','black','blue','blue-grey','brown','cyan','dark-grey','deep-orange','deep-purple','green','grey','indigo','khaki','light-blue','light-green','lime','orange','pink','purple','red','teal','yellow']});
-Object.defineProperty(Kalmusgo,'lang',{value:'en',writable:true});
-Object.defineProperty(Kalmusgo,'getVal',{value:function(key){return Kalmusgo.language[Kalmusgo.lang][key]}});
-Kalmusgo.language={id:{
-	isRTL:false,
+Kalmusgo.strings={
 	menuItem0:["Kalender Hijriyah","Kalender Masehi"],
 	menuItem1:"Mulai hari",
 	menuItem2:"Pilih musim",
@@ -766,4 +732,4 @@ Kalmusgo.language={id:{
 	hMonthNames:["Muharam","Safar","Rabi'ul-Awal","Rabi'ul-Akhir","Jumadil-Awal","Jumadil-Akhir","Rajab","Sya'ban","Ramadhan","Syawwal","Zulqa'idah","Zulhijjah"],
 	hMonthShortNames:["Muh","Saf","Raw","Rak","Jaw","Jak","Raj","Sya","Ram","Syw","Zuq","Zuh"],
 	events:["Musim Tanam","Musim Melaut","Musim Hajatan","Payango Bele","Tampilkan Lowanga","Hilangkan Lowanga","Hilangkan Semua"]
-}};
+};
