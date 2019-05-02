@@ -8,7 +8,7 @@
 'use strict';
 function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 	if(typeof HijriDate=='undefined')throw new Error('HijriDate() class required!');
-	let cd=typeof this=='object'?this:window,gdate=new Date(),hdate=new HijriDate(),dispDate,tzOffset=Date.parse('01 Jan 1970'),
+	let kmg=typeof this=='object'?this:window,gdate=new Date(),hdate=new HijriDate(),dispDate,tzOffset=Date.parse('01 Jan 1970'),
 	gridAni='zoom',actTmoId,isDispToday=false,isAccFirstDayOpened=false,isAccEvtsOpened=false,isAutoNewTheme,isRTL=false,
 	aboutElm,aboutTitleElm,aboutDateElm,aboutCloseBtnElm,evtMode=6,isJinxedOn=false,
 	isSmallScreen=(window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth)<520,
@@ -478,13 +478,13 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 			menuBtnElm.className+=' w3-light-grey';menuWrapElm.className+=' w3-show'
 		}else hideMenu()
 	},
-	onChgCalMod=function(){cd.setHijriMode(!isHijr);applyTodayTmout()},
+	onChgCalMod=function(){kmg.setHijriMode(!isHijr);applyTodayTmout()},
 	onFirstDay=function(){
 		if(menuFirstDayElm.className.indexOf('expanded')==-1){replaceClass(menuFirstDayElm,'collapsed','expanded');isAccFirstDayOpened=true}
 		else{replaceClass(menuFirstDayElm,'expanded','collapsed');isAccFirstDayOpened=false}
 	},
 	onSelFirstDay=function(ev){
-		ev=ev||window.event;let el=ev.target||ev.srcElement;cd.setFirstDayOfWeek(el.getAttribute('firstday'));applyTodayTmout();
+		ev=ev||window.event;let el=ev.target||ev.srcElement;kmg.setFirstDayOfWeek(el.getAttribute('firstday'));applyTodayTmout();
 	},
 	onEvts=function(ev){
 		if(menuEvtsElm.className.indexOf('expanded')==-1){replaceClass(menuEvtsElm,'collapsed','expanded');isAccEvtsOpened=true}
@@ -536,7 +536,7 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 				break;
 		}gridAni='top';recreateDates()
 	},
-	onDispToday=function(){cd.today()},
+	onDispToday=function(){kmg.today()},
 	onNewTheme=function(){newTheme();applyTheme()},
 	onAbout=function(){
 		hideMenu();
@@ -546,7 +546,7 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 		aboutElm.callback=applyTodayTmout;
 		if(actTmoId)window.clearTimeout(actTmoId);
 		actTmoId=window.setTimeout(function(){
-			aboutElm.style.display='none';aboutElm.callback=null;aboutTitleElm.innerHTML=aboutDateElm.innerHTML='';cd.today()
+			aboutElm.style.display='none';aboutElm.callback=null;aboutTitleElm.innerHTML=aboutDateElm.innerHTML='';kmg.today()
 		},tmout*1000)
 	},
 	onClose=function(){hideMenu()},
@@ -573,28 +573,28 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 		let n=Date.now()-tzOffset,t=864e5-n%864e5;
 		window.setTimeout(beginNewDate,t);updTodayLbl();
 		if(isAutoNewTheme){newTheme();applyTheme()}
-		if(isDispToday){isDispToday=false;cd.today()}
+		if(isDispToday){isDispToday=false;kmg.today()}
 	},
 	applyTodayTmout=function(){
 		if(actTmoId){window.clearTimeout(actTmoId);actTmoId=null}
-		if(!isDispToday)actTmoId=window.setTimeout(cd.today,tmout*1000)
+		if(!isDispToday)actTmoId=window.setTimeout(kmg.today,tmout*1000)
 	},
 	newTheme=function(){let ct=Kalmusgo.themes,i;do i=Math.floor(Math.random()*ct.length);while(ct[i]==theme);theme=ct[i]},
 	applyTheme=function(){
 		headerElm.className=headerElm.className.substring(0,headerElm.className.lastIndexOf('w3-'))+'w3-'+theme
 	},
 	replaceClass=function(el,dt,sr){el.className=el.className.replace(dt,sr)};
-	cd.attachTo=function(el){if(el.appendChild&&!contElm.parentNode){el.appendChild(contElm);onRszWdw();return true}return false};
-	cd.fireResize=function(){onRszWdw()};
-	cd.getElement=function(){return contElm};
-	cd.resetDate=function(y,m){
+	kmg.attachTo=function(el){if(el.appendChild&&!contElm.parentNode){el.appendChild(contElm);onRszWdw();return true}return false};
+	kmg.fireResize=function(){onRszWdw()};
+	kmg.getElement=function(){return contElm};
+	kmg.resetDate=function(y,m){
 		let t=dispDate.getTime();
 		dispDate.setFullYear(HijriDate.int(y,dispDate.getFullYear()));
 		dispDate.setMonth(HijriDate.int(m,dispDate.getMonth()));
 		if(dispDate.getTime()!=t){gridAni='zoom';updCal();return true}
 		return false
 	};
-	cd.setFirstDayOfWeek=function(f){
+	kmg.setFirstDayOfWeek=function(f){
 		f=HijriDate.int(f,firstDay)%7;
 		if(f!=firstDay){
 			let el=accFirstDayElm.children[firstDay];
@@ -602,11 +602,11 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 			el.disabled=false;firstDay=f;recreateWdayTitle();gridAni='top';recreateDates();return true
 		}return false
 	};
-	cd.setFullYear=function(y){return cd.resetDate(y)};
-	cd.setHijriMode=function(h){
+	kmg.setFullYear=function(y){return kmg.resetDate(y)};
+	kmg.setHijriMode=function(h){
 		if(typeof h=='boolean'&&h!=isHijr){
 			syncDates();dispDate=getOppsDate();isHijr=h;updCalModMenuLbl();updFirstDayMenuLbl();updTodayLbl();recreateWdayTitle();
-			if(isDispToday){isDispToday=false;dispDate.setDate(1);cd.today()}
+			if(isDispToday){isDispToday=false;dispDate.setDate(1);kmg.today()}
 			else{
 				let d=dispDate.getDate();dispDate.setDate(1);
 				if(d>15)dispDate.setMonth(dispDate.getMonth()+1);
@@ -614,7 +614,7 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 			}return true
 		}return false
 	};
-	cd.setLanguage=function(l){
+	kmg.setLanguage=function(l){
 		let c=Kalmusgo;
 		if(typeof l=='string'){
 			l=l.toLowerCase();
@@ -627,8 +627,8 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 			}
 		}return false
 	};
-	cd.setMonth=function(m){return cd.resetDate(null,m)};
-	cd.setTheme=function(t){
+	kmg.setMonth=function(m){return kmg.resetDate(null,m)};
+	kmg.setTheme=function(t){
 		let ct=Kalmusgo.themes,ctl=ct.length,i=0;
 		if(typeof t=='number'){
 			if(0<=t&&t<ctl){isAutoNewTheme=false;theme=ct[t]}
@@ -641,14 +641,14 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 		}else{isAutoNewTheme=true;newTheme()}
 		applyTheme();return isAutoNewTheme
 	};
-	cd.setTime=function(t){
+	kmg.setTime=function(t){
 		let o=dispDate.getTime();
 		dispDate.setTime(getFixTime(HijriDate.int(t,getCurTime())));dispDate.setDate(1);
 		if(dispDate.getTime()!=o){gridAni='zoom';updCal();return true}
 		return false
 	};
-	cd.setTodayTimeout=function(t){t=HijriDate.int(t,tmout);if(t>=10){tmout=t;applyTodayTmout();return true}return false};
-	cd.today=function(){
+	kmg.setTodayTimeout=function(t){t=HijriDate.int(t,tmout);if(t>=10){tmout=t;applyTodayTmout();return true}return false};
+	kmg.today=function(){
 		if(!isDispToday){dispDate.setTime(getCurTime());dispDate.setDate(1);gridAni='top';updCal();return true}return false
 	};
 	if(typeof isHijr!='boolean')isHijr=false;
@@ -657,7 +657,7 @@ function Kalmusgo(isHijr,year,month,firstDay,lang,theme,tmout){
 	if(typeof lang=='string'){lang=lang.toLowerCase();if(typeof Kalmusgo.language[lang]!='object')lang='id'}
 	else lang='id';
 	Kalmusgo.lang=lang;
-	cd.setTheme(theme);
+	kmg.setTheme(theme);
 	tmout=HijriDate.int(tmout,120);
 	beginNewDate();
 	year=HijriDate.int(year,NaN);month=HijriDate.int(month,NaN);
