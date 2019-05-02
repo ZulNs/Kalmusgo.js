@@ -670,8 +670,7 @@ Date.prototype.getWeekdayShortName=function(d){
 };
 Date.prototype.getYearString=function(y){
 	y=HijriDate.int(y,this.getFullYear());
-	let e=Kalmusgo.strings['eraSuffix'],i=0;
-	if(y<1){i++;y=1-y};return y+' '+e[i]
+	let i=0;if(y<1){i++;y=1-y};return y+' '+Kalmusgo.strings['eraSuffix'][i]
 };
 Date.prototype.todayShortString=function(){
 	let t=this.getTime();this.setTime(Date.now());
@@ -701,8 +700,7 @@ HijriDate.prototype.getWeekdayShortName=function(d){
 };
 HijriDate.prototype.getYearString=function(y){
 	y=HijriDate.int(y,this.getFullYear());
-	let e=Kalmusgo.strings['hEraSuffix'],i=0;
-	if(y<1){i++;y=1-y};return y+' '+e[i]
+	let i=0;if(y<1){i++;y=1-y};return y+' '+Kalmusgo.strings['hEraSuffix'][i]
 };
 HijriDate.prototype.todayShortString=function(){
 	let t=this.getTime();this.setTime(Date.now());
