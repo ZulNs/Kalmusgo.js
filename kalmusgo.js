@@ -19,7 +19,7 @@ function Kalmusgo(isHijr,year,month,firstDay,theme,tmout){
 		if(window.addEventListener)el.addEventListener(ev,cb);else if(el.attachEvent)el.attachEvent('on'+ev,cb);else el['on'+ev]=cb
 	},
 	contElm=createElm('div','zulns-kalmusgo'),
-	calElm=createElm('div','w3-card-4'),
+	calElm=createElm('div','w3-card'),
 	headerElm=createElm('div','w3-display-container w3-theme'),
 	evtElm=createElm('div','w3-large unbreakable'),
 	todayElm=createElm('div','w3-display-topright w3-large unbreakable'),
@@ -38,7 +38,7 @@ function Kalmusgo(isHijr,year,month,firstDay,theme,tmout){
 	menuCloseElm=createElm('button','w3-bar-item w3-button w3-ripple'),
 	wdayTitleElm=createElm('div','w3-cell-row w3-center w3-light-grey'),
 	gridsElm=createElm('div','w3-white'),
-	legendElm=createElm('div','w3-large'),
+	legendElm=createElm('div','w3-small'),
 	createStyle=function(){
 		let stl=document.getElementById('ZulNsKalmusgoStyle'),ct=Kalmusgo.themes,ctl=ct.length;
 		if(stl)return false;
@@ -49,7 +49,6 @@ function Kalmusgo(isHijr,year,month,firstDay,theme,tmout){
 			'.w3-bar-item:focus{border-color:#2196F3!important}'+
 			'.w3-bar-item.expanded{color:#fff;background-color:#616161}'+
 			'button.collapsed + div,button.collapsed>:nth-child(3),button.expanded>:nth-child(2){display:none!important}'+
-			'.right-to-left .w3-cell{float:right!important}'+
 			'.unbreakable{overflow:hidden;white-space:nowrap}'+
 			'button.w3-button:not(.w3-bar-item){padding:4px 10px!important}'+
 			'.styled{box-shadow: 0 1px 4px rgba(0,0,0,.8);border-radius:4px}';
@@ -404,7 +403,7 @@ function Kalmusgo(isHijr,year,month,firstDay,theme,tmout){
 						if(!isStyled){
 							grid.className+=' w3-green';
 							if(!isLegendBolehBangunRumah){
-								createLegend('w3-pale-greeen w3-border-green',(isHijr?desc:'Mulai '+pdate+' '+gdate.getMonthName()+': '+desc));
+								createLegend('w3-pale-green w3-border-green',(isHijr?desc:'Mulai '+pdate+' '+gdate.getMonthName()+': '+desc));
 								isLegendBolehBangunRumah=true
 							}
 						}
@@ -465,7 +464,7 @@ function Kalmusgo(isHijr,year,month,firstDay,theme,tmout){
 		createDates()
 	},
 	createLegend=function(color,desc){
-		let el=createElm('div','w3-panel w3-leftbar w3-medium '+color,desc);
+		let el=createElm('div','w3-panel w3-leftbar '+color,desc);
 		legendElm.appendChild(el)
 	},
 	updCal=function(){updHeader();recreateDates()},
