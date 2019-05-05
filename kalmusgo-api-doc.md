@@ -122,25 +122,25 @@ new Kalmusgo([modeHijriah[, tahun[, indeksBulan[, mulaiHari[, warnaTema[, timeou
 
 ## Metode-Metode Tambahan untuk `Date.prototype` dan `HijriDate.prototype`
 Dengan menggunakan librari ini, metode-metode berikut akan ditambahkan pada instans `Date.prototype` dan `HijriDate.prototype`.
-- **`.getMonthName([indeksBulan])`**
+- **`.getMonthName([indeksBulan])`**<br>
   Mengembalikan nama bulan sesuai angka indeks bulan (0-11) yang diinginkan dalam `indeksBulan` sebagai nilai string ("Januari"-"Desember" atau "Muharam"-"Zulhijjah"). If `indeksBulan` dihilangkan maka nama bulan sekarang yang akan dikembalikan.
 
-- **`.getMonthShortName([indeksBulan])`**
+- **`.getMonthShortName([indeksBulan])`**<br>
   Mengembalikan nama dari indeks bulan (0-11) yang diinginkanthat dalam `indkesBulan` sebagai string yang bisa dibaca ("Januari"-"Desember" atau "Muharam"-"Zulhijjah"). Jika `indeksBulan` dihilangkan maka nama bulan sekarang yang akan dikembalikan.
 
-- **`.getWeekdayName([hari])`**
+- **`.getWeekdayName([hari])`**<br>
   Mengembalikan nama hari (0-6) dalam `hari` sebagai string yang bisa dibaca ("Minggu"-"Sabtu"). Jika `hari` dihilangkan maka nama hari sekarang yang akan dikembalikan.
 
-- **`.getWeekdayShortName([hari])`**
+- **`.getWeekdayShortName([hari])`**<br>
   Mengembalikan singkatan nama hari (0-6) dalam `hari` sebagai string yang bisa dibaca ("Min"-"Sab"). Jika `hari` dihilangkan maka singkatan nama hari sekarang yang akan dikembalikan.
 
-- **`.getYearString([tahun])`**
+- **`.getYearString([tahun])`**<br>
   Mengembalikan bilangan bulat tahun yang diinginkan dalam `tahun` diikuti dengan singkatan era ("M"/"SM" atau "H"/"SH") sebagai string. Jika `tahun` dihilangkan maka tahun sekarang yang akan dikembalikan.
 
-- **`.todayShortString()`**
+- **`.todayShortString()`**<br>
   Mengembalikan singkatan tanggal sekarang sebagai string yang bisa dibaca tergantung mode kalender (Masehi atau Hijriah). Sebagai contoh "Jum, 4 Jan 2019" untuk mode kalender Masehi atau "Jum, 27 Rak 1440" untuk mode kalender Hijriah.
 
-- **`.todayString()`**
+- **`.todayString()`**<br>
   Mengembalikan tanggal sekarang sebagai string yang bisa dibaca tergantung mode kalender (Masehi atau Hijriah). Sebagai contoh  "Jum'at, 4 Januari 2019" untuk mode kalender Masehi atau "Jum'at, 27 Rabi'ul-Akhir 1440" untuk mode kalender Hijriah.
 
 &nbsp;
